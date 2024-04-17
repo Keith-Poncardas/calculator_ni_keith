@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator Ni Keith</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="shortcut icon" href="calculator-8-16.ico" type="image/x-icon">
+  <style>
+    body {
+      background-color: #bde0fe;
+      color: #293241;
+      font-family: "Helvetica Neue", sans-serif;
+    }
+
+    .calculator {
+      width: 300px;
+      margin: 50px auto;
+      border: 1px solid #a2d2ff;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .display {
+      font-size: 36px;
+      text-align: right;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ffafcc;
+      border-radius: 10px;
+      background-color: #ffc8dd;
+    }
+
+    .row {
+      margin-bottom: 10px;
+    }
+
+    button {
+      width: 100%;
+      font-size: 24px;
+      border-radius: 10px;
+    }
+
+    button.operator {
+      background-color: #ffc8dd;
+      color: white;
+    }
+
+    button.equals {
+      background-color: #ffc8dd;
+      color: #293241;
+    }
+
+    button.clear {
+      background-color: #ffafcc;
+      color: white;
+    }
+
+    .credits {
+      margin-top: 100px;
+      text-align: center;
+      color: #666;
+    }
+
+    .falling-heart {
+      position: absolute;
+      color: red;
+      font-size: 50px;
+      /* Adjust the font size here */
+    }
+
+    @keyframes falling {
+      0% {
+        transform: translateY(-100vh);
+      }
+
+      100% {
+        transform: translateY(100vh);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="calculator">
+    <div class="display">
+      <input type="text" id="display" class="form-control mb-2" readonly style="height: 70px;">
+    </div>
+    <div class="row">
+      <div class="col-3"><button onclick="append('7')">7</button></div>
+      <div class="col-3"><button onclick="append('8')">8</button></div>
+      <div class="col-3"><button onclick="append('9')">9</button></div>
+      <div class="col-3"><button class="operator" onclick="append('+')">+</button></div>
+    </div>
+    <div class="row">
+      <div class="col-3"><button onclick="append('4')">4</button></div>
+      <div class="col-3"><button onclick="append('5')">5</button></div>
+      <div class="col-3"><button onclick="append('6')">6</button></div>
+      <div class="col-3"><button class="operator" onclick="append('-')">-</button></div>
+    </div>
+    <div class="row">
+      <div class="col-3"><button onclick="append('1')">1</button></div>
+      <div class="col-3"><button onclick="append('2')">2</button></div>
+      <div class="col-3"><button onclick="append('3')">3</button></div>
+      <div class="col-3"><button class="operator" onclick="append('*')">*</button></div>
+    </div>
+    <div class="row">
+      <div class="col-3"><button onclick="append('0')">0</button></div>
+      <div class="col-3"><button onclick="append('.')">.</button></div>
+      <div class="col-3"><button class="clear" onclick="clearDisplay()">C</button></div>
+      <div class="col-3"><button class="operator" onclick="append('/')">/</button></div>
+    </div>
+    <div class="row">
+      <div class="col-12"><button class="equals" onclick="calculate()">=</button></div>
+    </div>
+  </div>
+
+  <div class="credits">
+    &copy; 2024 All Rights Reserved, Made By <a href="https://keithponcardas.netlify.app/" target="_blank">Keith
+      Poncardas</a>.
+  </div>
+
+  <audio id="audio" controls style="display: none;">
+    <source
+      src="./audio/LeAnn Rimes - I Need You (Lyrics) _ I need you like water like breath like rain - Cakes & Eclairs_03.mp3"
+      type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    function append(value) {
+      document.getElementById('display').value += value;
+    }
+
+    function clearDisplay() {
+      document.getElementById('display').value = '';
+    }
+
+    function calculate() {
+      var displayValue = document.getElementById('display').value;
+      if (displayValue && /[+\-*/]/.test(displayValue)) {
+        document.getElementById('display').value = "I Miss You 🥺💔";
+        playAudio();
+        createFallingHeartsAndEmojis();
+      }
+    }
+
+    function playAudio() {
+      var audio = document.getElementById('audio');
+      audio.play();
+    }
+
+    function createFallingHeartsAndEmojis() {
+      for (var i = 0; i < 10; i++) {
+        var heart = document.createElement('span');
+        heart.innerHTML = '❤️';
+        heart.classList.add('falling-heart');
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animation = 'falling ' + (Math.random() * 3 + 1) + 's linear infinite';
+        document.body.appendChild(heart);
+
+        var emoji = document.createElement('span');
+        emoji.innerHTML = '😢';
+        emoji.classList.add('falling-heart');
+        emoji.style.left = Math.random() * 100 + 'vw';
+        emoji.style.animation = 'falling ' + (Math.random() * 3 + 1) + 's linear infinite';
+        document.body.appendChild(emoji);
+      }
+      setTimeout(function () {
+        document.querySelectorAll('.falling-heart').forEach(function (element) {
+          element.remove();
+        });
+      }, 50000);
+    }
+  </script>
+
+</body>
+
+</html>
